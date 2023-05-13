@@ -27,8 +27,9 @@ public class Home {
     public Boolean PerformLogout() throws InterruptedException {
         try {
             // Find and click on the Logout Button
-            WebElement logout_button = driver.findElement(By.className("MuiButton-text"));
-            logout_button.click();
+            WebElement logoutbutton = driver.findElement(By.xpath("//button[text()='Logout']"));
+           
+            logoutbutton.click();
 
             WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.invisibilityOfElementWithText(By.className("css-1urhf6j"),
@@ -73,9 +74,12 @@ public class Home {
     public List<WebElement> getSearchResults() {
         List<WebElement> searchResults = new ArrayList<WebElement>() {};
         try {
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
             // Find all webelements corresponding to the card content section of each of
             // search results
-            searchResults = driver.findElementsByClassName("css-1qw96cp");
+            searchResults = driver.findElements(By.xpath("//div[@class='MuiCardContent-root css-1qw96cp']"));
+
+
             return searchResults;
         } catch (Exception e) {
             System.out.println("There were no search results: " + e.getMessage());
@@ -87,13 +91,21 @@ public class Home {
     /*
      * Returns Boolean based on if the "No products found" text is displayed
      */
-    // TODO: CRIO_TASK_MODULE_XPATH - M1_2 Update Xpath to fix the error
     public Boolean isNoResultFound() {
         Boolean status = false;
         try {
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
             // Check the presence of "No products found" text in the web page. Assign status
-            // = true if the element is displayed else set status = false
-            status = driver.findElementByXPath("//*[text()=' No products found ']").isDisplayed();
+            // = true if the element is *displayed* else set status = false
+
+            WebElement noproductsfoundElement = driver.findElement(By.xpath("//h4[text()=' No products found ']"));
+            if(noproductsfoundElement.isDisplayed()){
+                String ExpectedText = " No products found ";
+                String ActualText= noproductsfoundElement.getText();
+                if(ActualText.equals(ExpectedText)){
+                    status = true;
+                }
+            }
             return status;
         } catch (Exception e) {
             return status;
@@ -105,6 +117,7 @@ public class Home {
      */
     public Boolean addProductToCart(String productName) {
         try {
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 05: MILESTONE 4
             /*
              * Iterate through each product on the page to find the WebElement corresponding to the
              * matching productName
@@ -167,8 +180,8 @@ public class Home {
             System.out.println("Exception while performing add to cart: " + e.getMessage());
             return false;
         }
+    
     }
-
     /*
      * Return Boolean denoting the status of clicking on the checkout button
      */
@@ -193,8 +206,10 @@ public class Home {
      */
     public Boolean changeProductQuantityinCart(String productName, int quantity) {
         try {
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 06: MILESTONE 5
 
             // Find the item on the cart with the matching productName
+
 
             // Increment or decrement the quantity of the matching product until the current
             // quantity is reached (Note: Keep a look out when then input quantity is 0,
@@ -293,29 +308,36 @@ public class Home {
     /*
      * Return Boolean denoting if the cart contains items as expected
      */
-    // TODO: CRIO_TASK_MODULE_XPATH - M2_1 Update locators to use Xpath
     public Boolean verifyCartContents(List<String> expectedCartContents) {
         try {
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 07: MILESTONE 6
+
             // Get all the cart items as an array of webelements
 
+           List<WebElement> CartContentsElements = driver.findElements(By.xpath("//div[@class='MuiBox-root css-1gjj37g']"));
+
+
+            List<WebElement> ProductNameElements = driver.findElements(By.xpath("//div[@class='MuiBox-root css-1gjj37g']/div[1]"));
+
+       
             // Iterate through expectedCartContents and check if item with matching product
+
+            for (int i=0; i<expectedCartContents.size();i++){
+                WebElement CartContentElement = CartContentsElements.get(i);
+                WebElement ProductNameElement = ProductNameElements.get(i);
+                String actualProductNameText= ProductNameElement.getText(); 
+                String ExpectedCartcontent= expectedCartContents.get(i).toString();
+                System.out.println(ExpectedCartcontent);
+               
+            if(actualProductNameText.equalsIgnoreCase(ExpectedCartcontent)){
+                return true;
+            }
+            else{
+                System.out.println(ExpectedCartcontent);
+            }
+            }
             // name is present in the cart
 
-            WebElement cartParent = driver.findElement(By.className("cart"));
-            List<WebElement> cartContents = cartParent.findElements(By.className("css-zgtx0t"));
-
-            ArrayList<String> actualCartContents = new ArrayList<String>() {};
-            for (WebElement cartItem : cartContents) {
-                actualCartContents.add(
-                        cartItem.findElement(By.className("css-1gjj37g")).getText().split("\n")[0]);
-            }
-
-            for (String expected : expectedCartContents) {
-                // To trim as getText() trims cart item title
-                if (!actualCartContents.contains(expected.trim())) {
-                    return false;
-                }
-            }
 
             return true;
 

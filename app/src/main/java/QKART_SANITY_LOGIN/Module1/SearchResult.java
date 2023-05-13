@@ -83,7 +83,9 @@ public class SearchResult {
              * the element is "SIZE CHART". If the text "SIZE CHART" matches for the
              * element, set status = true , else set to false
              */
-            WebElement sizechartelement = parentElement.findElement(By.xpath(".//button[text()='Size chart']"));
+
+
+          WebElement sizechartelement = parentElement.findElement(By.xpath(".//button[text()='Size chart']"));
 
           if(sizechartelement.isDisplayed()){
 
@@ -108,10 +110,12 @@ public class SearchResult {
      */
     public Boolean validateSizeChartContents(List<String> expectedTableHeaders, List<List<String>> expectedTableBody,
             WebDriver driver) {
-        Boolean status = true;
+        Boolean status = false;
         try {
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 04: MILESTONE 2
             /*
              * Locate the table element when the size chart modal is open
+             * 
              * 
              * Validate that the contents of expectedTableHeaders is present as the table
              * header in the same order
@@ -119,32 +123,34 @@ public class SearchResult {
              * Validate that the contents of expectedTableBody are present in the table body
              * in the same order
              */
-            List<WebElement> tableHeaderElements = driver.findElements(By.xpath("//table//thead//th"));
-            for(int i=0;i<expectedTableHeaders.size();i++){
-                       String expectedHeaderText = expectedTableHeaders.get(i);
-                       WebElement tableHeaderElement = tableHeaderElements.get(i);
-                       String actualHeaderText = tableHeaderElement.getText();
-                       if(actualHeaderText.equals(expectedHeaderText))
-                       {
-                        status = true;
-                       }
-            }
-            for ( int i=0; i<expectedTableBody.size();i++){
-                List<String> expectedColumns = expectedTableBody.get(i);
-                for(int j=0;j<expectedColumns.size();j++){
-                    String expectedColumnText = expectedColumns.get(j);
-                    int row = i+1;
-                    int column = j+1;
-                    WebElement actualTableBody = 
-                    driver.findElement(By.xpath("//table//tbody//tr[" + row + "]//td[" + column + "]"));
-                    String actualColumnText = actualTableBody.getText();
-                    if(actualColumnText.equals(expectedColumnText)){
-                        status = true;
-                    }
-    
+        List<WebElement> tableHeaderElements = driver.findElements(By.xpath("//table//thead//th"));
+        for(int i=0;i<expectedTableHeaders.size();i++){
+                   String expectedHeaderText = expectedTableHeaders.get(i);
+                   WebElement tableHeaderElement = tableHeaderElements.get(i);
+                   String actualHeaderText = tableHeaderElement.getText();
+                   if(actualHeaderText.equals(expectedHeaderText))
+                   {
+                    status = true;
+                   }
+        }
+        for ( int i=0; i<expectedTableBody.size();i++){
+            List<String> expectedColumns = expectedTableBody.get(i);
+            for(int j=0;j<expectedColumns.size();j++){
+                String expectedColumnText = expectedColumns.get(j);
+                int row = i+1;
+                int column = j+1;
+                WebElement actualTableBody = 
+                driver.findElement(By.xpath("//table//tbody//tr[" + row + "]//td[" + column + "]"));
+                String actualColumnText = actualTableBody.getText();
+                if(actualColumnText.equals(expectedColumnText)){
+                    status = true;
                 }
+
             }
-            
+        }
+        
+
+             
             return status;
 
         } catch (Exception e) {
@@ -166,6 +172,8 @@ public class SearchResult {
             if(sizedropdoWebElement.isDisplayed()){
                 status= true;
             }
+
+
             return status;
         } catch (Exception e) {
             return status;

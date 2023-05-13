@@ -213,11 +213,10 @@ public class QkartSanity {
         }
 
         logStatus("Step Success", "Successfully validated the search results ", "PASS");
-        // SLEEP_STMT_02
-     
+        Thread.sleep(2000);
 
         // Search for product
-        status = homePage.searchForProduct("Gesundheit  ");
+        status = homePage.searchForProduct("Gesundheit");
         if (!status) {
             logStatus("TestCase 3", "Test Case Failure. Unable to search for given product", "FAIL");
             return false;
@@ -236,7 +235,6 @@ public class QkartSanity {
         } else {
             logStatus("TestCase 3", "Test Case Fail. Expected: no results , actual: Results were available", "FAIL");
             return false;
-            
         }
 
         return true;
@@ -348,18 +346,11 @@ public class QkartSanity {
         Home homePage = new Home(driver);
         homePage.navigateToHome();
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         // Find required products by searching and add them to the user's cart
         status = homePage.searchForProduct("Yonex");
-        
         homePage.addProductToCart("YONEX Smash Badminton Racquet");
-
-        takeScreenshot(driver, "testcase05", "TestCase-2");
-
         status = homePage.searchForProduct("Tan");
         homePage.addProductToCart("Tan Leatherette Weekender Duffle");
-
-        takeScreenshot(driver, "testcase05", "TestCase-3");
 
         // Click on the checkout button
         homePage.clickCheckout();
@@ -464,7 +455,7 @@ public class QkartSanity {
         takeScreenshot(driver, "testcase06", "End TestCase");
 
         homePage.navigateToHome();
-        Thread.sleep(3000);
+       
         homePage.PerformLogout();
 
         logStatus("End TestCase", "Test Case 6: Verify that cart can be edited: ", status ? "PASS" : "FAIL");
