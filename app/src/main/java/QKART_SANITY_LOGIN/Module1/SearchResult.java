@@ -1,7 +1,7 @@
 package QKART_SANITY_LOGIN.Module1;
 
 import java.util.List;
-
+import javax.xml.xpath.XPath;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -23,12 +23,12 @@ public class SearchResult {
      */
     public String getTitleofResult() {
         String titleOfSearchResult = "";
-          // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
+        // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
         // Find the element containing the title (product name) of the search result and
        WebElement titlename =parentElement.findElement(By.xpath("//div[@class='MuiCardContent-root css-1qw96cp']/p[text()='YONEX Smash Badminton Racquet']"));
-       // assign the extract title text to titleOfSearchResult
-       titleOfSearchResult = titlename.getText();
-       return titleOfSearchResult;
+        // assign the extract title text to titleOfSearchResult
+        titleOfSearchResult = titlename.getText();
+        return titleOfSearchResult;
     }
 
     /*
@@ -36,13 +36,14 @@ public class SearchResult {
      */
     public Boolean openSizechart() {
         try {
-                 
+
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 04: MILESTONE 2
+            // Find the link of size chart in the parentElement and click on it
+              
           WebElement sizechartelement = parentElement.findElement(By.xpath(".//button[text()='Size chart']"));
 
           sizechartelement.click();
           Thread.sleep(3000);
-
-            
 
             return true;
         } catch (Exception e) {
@@ -56,9 +57,10 @@ public class SearchResult {
      */
     public Boolean closeSizeChart(WebDriver driver) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             Actions action = new Actions(driver);
 
+            // Clicking on "ESC" key closes the size chart modal
             action.sendKeys(Keys.ESCAPE);
             action.perform();
             Thread.sleep(2000);
@@ -75,6 +77,7 @@ public class SearchResult {
     public Boolean verifySizeChartExists() {
         Boolean status = false;
         try {
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 04: MILESTONE 2
             /*
              * Check if the size chart element exists. If it exists, check if the text of
              * the element is "SIZE CHART". If the text "SIZE CHART" matches for the

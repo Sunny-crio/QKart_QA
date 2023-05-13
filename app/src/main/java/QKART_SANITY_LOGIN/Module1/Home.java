@@ -113,18 +113,18 @@ public class Home {
              * 
              * Return true if these operations succeeds
              */
-            // List<WebElement> gridContent = driver.findElementsByClassName("css-sycj1h");
-            // for (WebElement cell : gridContent) {
-            //     if (productName.contains(driver.findElement(By.className("css-yg30e6")).getText())) {
-            //         cell.findElement(By.tagName("button")).click();
+            List<WebElement> gridContent = driver.findElementsByClassName("css-sycj1h");
+            for (WebElement cell : gridContent) {
+                if (productName.contains(driver.findElement(By.className("css-yg30e6")).getText())) {
+                    cell.findElement(By.tagName("button")).click();
 
-            //         WebDriverWait wait = new WebDriverWait(driver, 30);
-            //         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(
-            //                 "//*[@class='MuiBox-root css-1gjj37g']/div[1][text()='%s']",
-            //                 productName))));
-            //         return true;
-            //     }
-            // }
+                    WebDriverWait wait = new WebDriverWait(driver, 30);
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(
+                            "//*[@class='MuiBox-root css-1gjj37g']/div[1][text()='%s']",
+                            productName))));
+                    return true;
+                }
+            }
             // SLEEP_STMT_12: If product found, wait till the product gets added
             // successfully
 
@@ -137,31 +137,25 @@ public class Home {
             //      * Click on the "ADD TO CART" button for that element
             //      * 
             //      * Return true if these operations succeeds
-
-
             //      */
-
-            
-            List<WebElement> productNameWebElements = driver.findElements(By.xpath("//p[@class='MuiTypography-root MuiTypography-body1 css-yg30e6']"));
+            // List<WebElement> productNameWebElements = driver.findElements(By.xpath("//p[@class='MuiTypography-root MuiTypography-body1 css-yg30e6']"));
     
-            List<WebElement> addToCartButtonElements = driver.findElements(By.xpath(" //button[text()='Add to cart']"));
-            // for (WebElement productname : productNameWebElements){
-            //     String productText = productname.getText();
-            //     if(productText.equals(productName)){
-            //      return true;
-            //     }
-            // }
+            // List<WebElement> addToCartButtonElements = driver.findElements(By.xpath(" //button[text()='Add to cart']"));
+            // // for (WebElement productname : productNameWebElements){
+            // //     String productText = productname.getText();
+            // //     if(productText.equals(productName)){
+            // //      return true;
+            // //     }
+            // // }
     
-            for ( int i =0; i< productNameWebElements.size(); i++){
-                WebElement productnameWebElement = productNameWebElements.get(i);
-                String actualproductname = productnameWebElement.getText();
-                if(actualproductname.equals(productName)){
+            // for ( int i =0; i< productNameWebElements.size(); i++){
+            //     WebElement productnameWebElement = productNameWebElements.get(i);
+            //     String actualproductname = productnameWebElement.getText();
+            //     if(actualproductname.equals(productName)){
     
-                    WebElement addtoCartButtonElement= addToCartButtonElements.get(i);
-                    addtoCartButtonElement.click();
-                }
+            //         WebElement addtoCartButtonElement= addToCartButtonElements.get(i);
+            //         addtoCartButtonElement.click();
     
-            }
                 
     
             
@@ -169,8 +163,7 @@ public class Home {
     
             System.out.println("Unable to find the given product: " + productName);
             return false;
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Exception while performing add to cart: " + e.getMessage());
             return false;
         }

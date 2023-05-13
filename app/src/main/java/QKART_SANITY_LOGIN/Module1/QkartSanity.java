@@ -77,7 +77,7 @@ public class QkartSanity {
     }
 
     /*
-     * Testcase01: Verify the functionality of Login button on the Home page
+     * Testcase01: Verify the functionality of new user can register and  Login to qKart 
      */
     public static Boolean TestCase01(RemoteWebDriver driver) throws InterruptedException{
 
@@ -160,7 +160,6 @@ public class QkartSanity {
 
         // If status is true, then registration succeeded, else registration has
         // failed. In this case registration failure means Success
-        
         logStatus("End TestCase", "Test Case 2: Verify user Registration : ", status ? "FAIL" : "PASS");
         return !status;
     }
@@ -283,10 +282,10 @@ public class QkartSanity {
                 status = result.verifyExistenceofSizeDropdown(driver);
                 logStatus("Step Success", "Validated presence of drop down", status ? "PASS" : "FAIL");
 
-                takeScreenshot(driver, "testcase04", "End TestCase");
-
                 // Open the size chart
                 if (result.openSizechart()) {
+                    Thread.sleep(3000);
+                   
                     // Verify if the size chart contents matches the expected values
                     if (result.validateSizeChartContents(expectedTableHeaders, expectedTableBody, driver)) {
                         logStatus("Step Success", "Successfully validated contents of Size Chart Link", "PASS");
@@ -296,7 +295,6 @@ public class QkartSanity {
 
                     // Close the size chart modal
                     status = result.closeSizeChart(driver);
-
 
                 } else {
                     logStatus("TestCase 4", "Test Case Fail. Failure to open Size Chart", "FAIL");
@@ -379,6 +377,7 @@ public class QkartSanity {
 
         // 0R
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Continue Shopping']")));
+        Thread.sleep(3000);
 
         // Check if placing order redirected to the Thansk page
         status = driver.getCurrentUrl().endsWith("/thanks");
@@ -388,7 +387,7 @@ public class QkartSanity {
         //Thread.sleep(3000);
 
         // Log out the user
-        homePage.PerformLogout();
+       status = homePage.PerformLogout();
         takeScreenshot(driver, "testcase05", "End TestCase");
 
         logStatus("End TestCase", "Test Case 5: Happy Flow Test Completed : ", status ? "PASS" : "FAIL");
@@ -568,7 +567,7 @@ public class QkartSanity {
         homePage.navigateToHome();
         status = homePage.searchForProduct("Stylecon");
         homePage.addProductToCart("Stylecon 9 Seater RHS Sofa Set");
-        Thread.sleep(3000);
+        Thread.sleep(500);
 
         homePage.changeProductQuantityinCart("Stylecon 9 Seater RHS Sofa Set", 10);
 
@@ -936,7 +935,7 @@ for (WebElement productname : productNameWebElements){
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         try {
-            // Execute Test Case 1
+           // Execute Test Case 1
             totalTests += 1;
             status = TestCase01(driver);
             if (status) {
@@ -945,7 +944,7 @@ for (WebElement productname : productNameWebElements){
 
             // System.out.println("");
 
-            // // Execute Test Case 2
+        //     // Execute Test Case 2
             totalTests += 1;
             status = TestCase02(driver);
             if (status) {
