@@ -16,7 +16,6 @@ public class Register {
 
     public Register(RemoteWebDriver driver) {
         this.driver = driver;
-
     }
 
     public void navigateToRegisterPage() {
@@ -62,19 +61,12 @@ public class Register {
 
         // Click the register now button
         register_now_button.click();
-    
-    // WebDriverWait wait = new WebDriverWait(driver, 05);
-     Thread.sleep(3000);
 
-   // wait.until(ExpectedConditions.urlToBe("https://crio-qkart-frontend-qa.vercel.app/register"));
-
-       
-       
+        Thread.sleep(5000);
 
 
 
         this.lastGeneratedUsername = test_data_username;
-        
 
         return this.driver.getCurrentUrl().endsWith("/login");
     }

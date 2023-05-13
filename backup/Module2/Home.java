@@ -1,4 +1,4 @@
-package QKART_SANITY_LOGIN.Module1;
+package QKART_SANITY_LOGIN.Module4;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Home {
     public Boolean PerformLogout() throws InterruptedException {
         try {
             // Find and click on the Logout Button
-            WebElement logout_button = driver.findElement(By.className("MuiButton-text"));
+            WebElement logout_button = driver.findElement(By.xpath("//button[text()='Logout']"));
             logout_button.click();
 
             WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -113,64 +113,23 @@ public class Home {
              * 
              * Return true if these operations succeeds
              */
-            // List<WebElement> gridContent = driver.findElementsByClassName("css-sycj1h");
-            // for (WebElement cell : gridContent) {
-            //     if (productName.contains(driver.findElement(By.className("css-yg30e6")).getText())) {
-            //         cell.findElement(By.tagName("button")).click();
+            List<WebElement> gridContent = driver.findElementsByClassName("css-sycj1h");
+            for (WebElement cell : gridContent) {
+                if (productName.contains(cell.findElement(By.className("css-yg30e6")).getText())) {
+                    cell.findElement(By.tagName("button")).click();
 
-            //         WebDriverWait wait = new WebDriverWait(driver, 30);
-            //         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(
-            //                 "//*[@class='MuiBox-root css-1gjj37g']/div[1][text()='%s']",
-            //                 productName))));
-            //         return true;
-            //     }
-            // }
+                    WebDriverWait wait = new WebDriverWait(driver, 30);
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(
+                            "//*[@class='MuiBox-root css-1gjj37g']/div[1][text()='%s']",
+                            productName))));
+                    return true;
+                }
+            }
             // SLEEP_STMT_12: If product found, wait till the product gets added
             // successfully
-
-            // try {
-            //     // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 05: MILESTONE 4
-            //     /*
-            //      * Iterate through each product on the page to find the WebElement corresponding to the
-            //      * matching productName
-            //      * 
-            //      * Click on the "ADD TO CART" button for that element
-            //      * 
-            //      * Return true if these operations succeeds
-
-
-            //      */
-
-            
-            List<WebElement> productNameWebElements = driver.findElements(By.xpath("//p[@class='MuiTypography-root MuiTypography-body1 css-yg30e6']"));
-    
-            List<WebElement> addToCartButtonElements = driver.findElements(By.xpath(" //button[text()='Add to cart']"));
-            // for (WebElement productname : productNameWebElements){
-            //     String productText = productname.getText();
-            //     if(productText.equals(productName)){
-            //      return true;
-            //     }
-            // }
-    
-            for ( int i =0; i< productNameWebElements.size(); i++){
-                WebElement productnameWebElement = productNameWebElements.get(i);
-                String actualproductname = productnameWebElement.getText();
-                if(actualproductname.equals(productName)){
-    
-                    WebElement addtoCartButtonElement= addToCartButtonElements.get(i);
-                    addtoCartButtonElement.click();
-                }
-    
-            }
-                
-    
-            
-    
-    
             System.out.println("Unable to find the given product: " + productName);
             return false;
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Exception while performing add to cart: " + e.getMessage());
             return false;
         }
@@ -183,8 +142,7 @@ public class Home {
         Boolean status = false;
         try {
             // Find and click on the the Checkout button
-            Thread.sleep(3000);
-            WebElement checkoutBtn = driver.findElement(By.xpath("//*[text()='Checkout']"));
+            WebElement checkoutBtn = driver.findElement(By.className("checkout-btn"));
             checkoutBtn.click();
 
             status = true;
@@ -208,91 +166,51 @@ public class Home {
             // here we need to remove the item completely from the cart)
 
             // Find web element corresponding to each of the cart items
-            // WebElement cartParent = driver.findElement(By.className("cart"));
-            // List<WebElement> cartContents = cartParent.findElements(By.className("css-zgtx0t"));
-            // System.out.println("product change");
-
-            // int currentQty;
-            // for (WebElement item : cartContents) {
-            //     // Find the matching product from the cart items
-            //     if (productName.contains(
-            //             item.findElement(By.xpath("//*[@class='MuiBox-root css-1gjj37g']/div[1]"))
-            //                     .getText())) {
-            //         currentQty =
-            //                 Integer.valueOf(item.findElement(By.className("css-olyig7")).getText());
-
-            //         // Click on the + or - buttons appropriately to set the correct quantity of the
-            //         // product
-            //         while (currentQty != quantity) {
-            //             if (currentQty < quantity) {
-            //                 // increase Qty
-            //                 item.findElements(By.tagName("button")).get(1).click();
-
-            //             } else {
-            //                 // decrease Qty
-            //                 item.findElements(By.tagName("button")).get(0).click();
-            //             }
-
-            //             synchronized (driver) {
-            //                 driver.wait(2000);
-            //             }
-
-            //             currentQty = Integer.valueOf(
-            //                     item.findElement(By.xpath("//div[@data-testid=\"item-qty\"]"))
-            //                             .getText());
-            //         }
-
-            //         return true;
-            //     }
-            // }
-
             List<WebElement> productNameElements = driver.findElements(By.xpath("//div[@class='MuiBox-root css-1gjj37g']/div[1]"));
 
-            List<WebElement> CurrentQuantityElements = driver.findElements(By.xpath("//div[@data-testid='item-qty']"));
-            
-            List<WebElement> plusButtonElements = driver.findElements(By.xpath("//*[@data-testid='AddOutlinedIcon']"));
-            
-            List<WebElement> minusButtonElements = driver.findElements(By.xpath("//*[@data-testid='RemoveOutlinedIcon']"));
-            
-            for ( int i=0; i<productNameElements.size();i++){
-                WebElement productNameElement = productNameElements.get(i);
-                String actualProductName = productNameElement.getText();
-            
-                if(actualProductName.equals(productName)){
-            
-                    while(true){
-            
-                    WebElement CurrentQuantityElement = CurrentQuantityElements.get(i);
-                    String CurrentQuantityString = CurrentQuantityElement.getText();
-                    int currentQuantity= Integer.parseInt(CurrentQuantityString);
-                    //getText() always returns string
-                    if(currentQuantity<quantity){
-                        WebElement plusButtonElement=plusButtonElements.get(i);
-                        plusButtonElement.click();
-                        Thread.sleep(1000);
-                    }
-                    else if(currentQuantity>quantity){
-                        WebElement minusButtonElement = minusButtonElements.get(i);
-                        minusButtonElement.click();
-                        Thread.sleep(1000);
-                    }
-                    if ( currentQuantity==quantity){
-                        break;
-                    }
-                  
-            
-                }}
-            }
-            
-                   return false;
+List<WebElement> CurrentQuantityElements = driver.findElements(By.xpath("//div[@data-testid='item-qty']"));
 
+List<WebElement> plusButtonElements = driver.findElements(By.xpath("//*[@data-testid='AddOutlinedIcon']"));
 
+List<WebElement> minusButtonElements = driver.findElements(By.xpath("//*[@data-testid='RemoveOutlinedIcon']"));
 
+for ( int i=0; i<productNameElements.size();i++){
+    WebElement productNameElement = productNameElements.get(i);
+    String actualProductName = productNameElement.getText();
 
+    if(actualProductName.equals(productName)){
+
+        while(true){
+
+        WebElement CurrentQuantityElement = CurrentQuantityElements.get(i);
+        String CurrentQuantityString = CurrentQuantityElement.getText();
+        int currentQuantity= Integer.parseInt(CurrentQuantityString);
+        //getText() always returns string
+        if(currentQuantity<quantity){
+            WebElement plusButtonElement=plusButtonElements.get(i);
+            plusButtonElement.click();
+            Thread.sleep(1000);
+        }
+        else if(currentQuantity>quantity){
+            WebElement minusButtonElement = minusButtonElements.get(i);
+            minusButtonElement.click();
+            Thread.sleep(1000);
+        }
+        if ( currentQuantity==quantity){
+            break;
+        }
+      
+
+    }}
+}
+
+       return false;
+            
+           
         } catch (Exception e) {
             if (quantity == 0)
                 return true;
-            System.out.println(("exception occurred when updating cart"));
+            System.out.println("exception occurred when updating cart: " + e.getMessage());
             return false;
         }
     }
