@@ -48,18 +48,26 @@ public class Home {
         try {
             // Clear the contents of the search box and Enter the product name in the search
             // box
-            WebElement searchBox = driver.findElement(By.xpath("//input[@name='search'][1]"));
+            WebElement searchBox = driver.findElement(By.xpath("//div[@class='MuiFormControl-root MuiTextField-root search-desktop css-i44wyl']//div//input"));
+
+           // WebElement searchBox = driver.findElement(By.xpath("//div[@class='MuiFormControl-root MuiTextField-root search-desktop css-i44wyl']//div//input"));
+
             searchBox.clear();
             searchBox.sendKeys(product);
             
 
             WebDriverWait wait = new WebDriverWait(driver,30);
-    
+
+         
+          
             
-            wait.until(ExpectedConditions.or(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//* [text()='YONEX Smash Badminton Racquet']"), product),
-            ExpectedConditions.presenceOfElementLocated(By.xpath("//* [text()='YONEX Smash Badminton Racquet']"))));
-            Thread.sleep(3000);
+            wait.until(ExpectedConditions.or(ExpectedConditions.presenceOfElementLocated(By.xpath("//* [contains(text(), '"+product+"')]")),
+            ExpectedConditions.presenceOfElementLocated(By.xpath("//* [text()=' No products found ']"))));
+
+            
+        
             return true;
+
 
         } catch (Exception e) {
             System.out.println("Error while searching for a product: " + e.getMessage());
