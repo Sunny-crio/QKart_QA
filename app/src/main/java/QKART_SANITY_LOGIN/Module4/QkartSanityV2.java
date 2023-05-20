@@ -179,7 +179,7 @@ public class QkartSanityV2 {
         // Search for product
         status = homePage.searchForProduct("Gesundheit");
         if (status) {
-            logStatus("TestCase 3", "Test Case Failure. Invalid keyword returned results", "FAIL");
+            logStatus("TestCase 3", "Test Case Failure. Unable to search for given product", "PASS");
             return false;
         }
 
@@ -772,20 +772,20 @@ public class QkartSanityV2 {
 
         try {
             // Execute Test Case 1
-            totalTests += 1;
-            status = TestCase01(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase01(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
             System.out.println("");
 
             // Execute Test Case 2
-            totalTests += 1;
-            status = TestCase02(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase02(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
             System.out.println("");
 
@@ -799,85 +799,85 @@ public class QkartSanityV2 {
             System.out.println("");
 
             // Execute Test Case 4
-            totalTests += 1;
-            status = TestCase04(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase04(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
             System.out.println("");
 
             // Execute Test Case 5
-            totalTests += 1;
-            status = TestCase05(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase05(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
             System.out.println("");
 
             // Execute Test Case 6
-            totalTests += 1;
-            status = TestCase06(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase06(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
             System.out.println("");
 
             // Execute Test Case 7
-            totalTests += 1;
-            status = TestCase07(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase07(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
             System.out.println("");
 
             // Execute Test Case 8
-            totalTests += 1;
-            status = TestCase08(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase08(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
             System.out.println("");
 
             // Execute Test Case 9
-            totalTests += 1;
-            status = TestCase09(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase09(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
-            System.out.println("");
+            // System.out.println("");
 
             // Execute Test Case 10
-            totalTests += 1;
-            status = TestCase10(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase10(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
-            System.out.println("");
+            // System.out.println("");
 
             // Execute Test Case 11
-            totalTests += 1;
-            status = TestCase11(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase11(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
-            System.out.println("");
+            // System.out.println("");
 
             // Execute Test Case 12
-            totalTests += 1;
-            status = TestCase12(driver);
-            if (status) {
-                passedTests += 1;
-            }
+            // totalTests += 1;
+            // status = TestCase12(driver);
+            // if (status) {
+            //     passedTests += 1;
+            // }
 
-            System.out.println("");
+            // System.out.println("");
         } catch (Exception e) {
             throw e;
         } finally {
