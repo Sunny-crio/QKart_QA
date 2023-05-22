@@ -61,14 +61,14 @@ public class Home {
          
           
             
-            wait.until(ExpectedConditions.or(ExpectedConditions.presenceOfElementLocated(By.xpath("//* [contains(text(), '"+product+"')]")),
+            wait.until(ExpectedConditions.or(ExpectedConditions.textToBePresentInElementValue(By.xpath("//* [contains(text(), '"+product+"')]"), product),
             ExpectedConditions.presenceOfElementLocated(By.xpath("//* [text()=' No products found ']"))));
 
             
         
             return true;
 
-
+                
         } catch (Exception e) {
             System.out.println("Error while searching for a product: " + e.getMessage());
             return false;
