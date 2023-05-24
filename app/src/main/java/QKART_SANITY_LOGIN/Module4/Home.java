@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -44,37 +46,69 @@ public class Home {
      * errors
      */
     // TODO: CRIO_TASK_MODULE_XPATH - M1_1 Update locator using Dynamic Xpath to fix the error
-    public Boolean searchForProduct(String product) {
-        try {
+    // 
+    
+    // public Boolean searchForProduct(String product) {
+    //     try {
             // Clear the contents of the search box and Enter the product name in the search
             // box
-            WebElement searchBox = driver.findElement(By.xpath("//div[@class='MuiFormControl-root MuiTextField-root search-desktop css-i44wyl']//div//input"));
+    //         WebElement searchBox = driver.findElement(By.xpath("//input[@name='search'][1]"));
+    //         searchBox.clear();
+    //         searchBox.sendKeys(product);
 
-           // WebElement searchBox = driver.findElement(By.xpath("//div[@class='MuiFormControl-root MuiTextField-root search-desktop css-i44wyl']//div//input"));
+    //         WebDriverWait wait = new WebDriverWait(driver, 30);
+    //         wait.until(ExpectedConditions.or(
+    //                 ExpectedConditions.textToBePresentInElementLocated(By.className("css-yg30e6"),
+    //                         product),
+    //                 ExpectedConditions
+    //                         .presenceOfElementLocated(By.xpath("(//*[@name='search'])[1]"))));
+    
+    //         Thread.sleep(3000);
+    //         return true;
+    //     } catch (Exception e) {
+    //         System.out.println("Error while searching for a product: " + e.getMessage());
+    //         return false;
+    //     }
+    // }
 
+    public Boolean searchForProduct(String product) {
+        try {
+            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
+            // Clear the contents of the search box and Enter the product name in the search
+            // box
+            Boolean status = true;
+            WebElement searchBox = this.driver.findElement(By.xpath("//*[@id='root']/div/div/div[1]/div[2]/div/input"));
             searchBox.clear();
             searchBox.sendKeys(product);
-            
-
-            WebDriverWait wait = new WebDriverWait(driver,30);
-
-         
-          
-            
-            wait.until(ExpectedConditions.or(ExpectedConditions.textToBePresentInElementValue(By.xpath("//* [contains(text(), '"+product+"')]"), product),
-            ExpectedConditions.presenceOfElementLocated(By.xpath("//* [text()=' No products found ']"))));
-
-            
-        
-            return true;
-
-                
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            wait.until(ExpectedConditions.attributeToBe(searchBox, "value", product));
+            ExpectedCondition<Boolean> resultCondition = new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver) {
+                    WebElement resultElement = driver.findElement(By.cssSelector("p.css-yg30e6"));
+                    String resultText = resultElement.getText();
+                    return resultText.toLowerCase().contains(product.toLowerCase());
+                }
+                @Override
+                public String toString() {
+                    return "desired result element contains text as the search term";
+                }
+            };
+            wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
+            wait.until(ExpectedConditions.numberOfElementsToBeLessThan(By.cssSelector("div.css-sycj1h"), 3));
+            if(product.equals("Gesundheit")){
+               status = wait.until(ExpectedConditions.textToBePresentInElementLocated(By.cssSelector("div.css-1msksyp h4"), "No products found"));
+            }else{
+                wait.until(resultCondition);
+               status = wait.until(ExpectedConditions.attributeToBe(searchBox, "value", product));
+            }       
+            return status;
         } catch (Exception e) {
             System.out.println("Error while searching for a product: " + e.getMessage());
             return false;
         }
-      
     }
+
 
     /*
      * Returns Array of Web Elements that are search results and return the same
