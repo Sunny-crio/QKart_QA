@@ -1,0 +1,42 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test case suite e-commerce application">
+    <test name="Test case execution on Chrome browser">
+    <listeners>
+        <listener class-name = "QKART_TESTNG.ListenerClass"></listener>
+    </listeners>
+        <groups>
+            <run>
+              <!--include name="Sanity"/-->
+              <!--include name="Regression" /-->
+            </run>
+        </groups>
+        <parameter name="username" value="testUser" />
+        <parameter name="password" value="abc@123" />
+        <classes>
+            <class name="QKART_TESTNG.QKART_Tests">
+                <parameter name="product" value="YONEX" />
+                <parameter name="ProductName" value="Roadster" />
+                <parameter name="Product1" value="YONEX" />
+                <parameter name="Product2" value="Tan" />
+                <parameter name="address" value="Addr line 1 addr Line 2 addr line 3" />
+                <parameter name="Product1TC06" value="Xtend" />
+                <parameter name="Product2TC06" value="Yarine" />
+                <parameter name="Product1TC07" value="Stylecon" />
+                <parameter name="Product2TC07" value="Xtend" />
+                <parameter name="ProductTC08" value="Stylecon" />
+                <parameter name="Quantity" value="10" />
+                <parameter name="ContactusUserNameTC11" value="crio user" />
+                <parameter name="ContactUsEmailTC11" value="criouser@gmail.com" />
+                <parameter name="QueryContentTC11" value="Testing the contact us page" />
+                <parameter name="ProductTC12" value="YONEX Smash Badminton Racquet" />
+                <parameter name="AddressTC12" value="Addr line 1 addr Line 2 addr line 3" />
+                <!-- Uncomment the following block if you want to include specific test methods -->
+                <!--
+                <methods>
+                    <include name="TestCase03" />
+                </methods>
+                -->
+            </class>
+        </classes>
+    </test> <!-- Test -->
+</suite>

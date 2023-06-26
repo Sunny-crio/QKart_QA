@@ -1,4 +1,3 @@
- 
 plugins {
     id 'java'
 }
@@ -40,7 +39,11 @@ test.dependsOn startScript
 
 test {
     useTestNG() {
+        // CRIO_SOLUTION_START_MODULE_TESTNG
+       // suites 'app/src/test/java/QKART_TESTNG/testng.xml'
+        // CRIO_SOLUTION_END_MODULE_TESTNG
         useDefaultListeners = true
+        suites 'src/test/java/QKART_TESTNG/testng.xml'
     }
 
     afterSuite { desc, result ->

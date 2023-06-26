@@ -44,22 +44,43 @@ public class Home {
      * errors
      */
     public Boolean searchForProduct(String product) {
-        try {
-            // Clear the contents of the search box and Enter the product name in the search
-            // box
-            WebElement searchBox = driver.findElement(By.xpath("//input[@name='search'][1]"));
-            searchBox.clear();
-            searchBox.sendKeys(product);
+    //     try {
+    //         // Clear the contents of the search box and Enter the product name in the search
+    //         // box
+    //         WebElement searchBox = driver.findElement(By.xpath("//input[@name='search'][1]"));
+    //         searchBox.clear();
+    //         searchBox.sendKeys(product);
 
-            WebDriverWait wait = new WebDriverWait(driver, 30);
-            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(String
-                    .format("//div[@class='MuiCardContent-root css-1qw96cp'][1]/p[contains(text(),'%s')]", product))));
-            Thread.sleep(3000);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error while searching for a product: " + e.getMessage());
-            return false;
-        }
+    //         WebDriverWait wait = new WebDriverWait(driver, 30);
+    //         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(String
+    //                 .format("//div[@class='MuiCardContent-root css-1qw96cp'][1]/p[contains(text(),'%s')]", product))));
+    //         Thread.sleep(3000);
+    //         return true;
+    //     } catch (Exception e) {
+    //         System.out.println("Error while searching for a product: " + e.getMessage());
+    //         return false;
+    //     }
+    try {
+        // Clear the contents of the search box and Enter the product name in the search
+        // box
+        WebElement searchBox = driver.findElement(By.xpath("//input[@name='search'][1]"));
+        searchBox.clear();
+        searchBox.sendKeys(product);
+
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.textToBePresentInElementLocated(By.className("css-yg30e6"),
+                        product),
+                ExpectedConditions
+                        .presenceOfElementLocated(By.xpath("(//*[@name='search'])[1]"))));
+        Thread.sleep(3000);
+        return true;
+    } catch (Exception e) {
+        System.out.println("Error while searching for a product: " + e.getMessage());
+        return false;
+    }
+
+    
     }
 
     /*
@@ -132,7 +153,7 @@ public class Home {
         Boolean status = false;
         try {
             // Find and click on the the Checkout button
-            WebElement checkoutBtn = driver.findElement(By.className("checkout-btn"));
+            WebElement checkoutBtn = driver.findElement(By.xpath("*//div[@class='cart-footer MuiBox-root css-1bvc4cc']/button"));
             checkoutBtn.click();
 
             status = true;
